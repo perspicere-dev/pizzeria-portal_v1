@@ -1,21 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import PageNav from '../PageNav';
-// import styles from 
+import PageNav from '../PageNav/PageNav';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
 
-class MainLayout extends React.Component {
-    static propTypes = {
-      children: PropTypes.node,
-     
-    }
-    render () {
-      return ( 
-        <div> 
-          <PageNav />
-          { this.props.children} 
-        </div>
-      ); 
-    }
-}
+const MainLayout = ({children}) => (
+  <div className="MainLayout">
+    <AppBar>
+      <Toolbar>
+        <PageNav />
+      </Toolbar>
+    </AppBar> 
+    {children}
+  </div>
+);
+
+MainLayout.propTypes = {
+  children: PropTypes.node,
+};
 
 export default MainLayout;
