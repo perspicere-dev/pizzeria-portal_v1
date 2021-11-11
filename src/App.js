@@ -8,6 +8,10 @@ import Tables from './components/views/Tables/Tables';
 import TablesBooking from './components/views/TablesBooking/TablesBooking';
 import TablesEvents from './components/views/TablesEvents/TablesEvents';
 import Waiter from './components/views/Waiter/Waiter';
+import WaiterOrder from './components/views/WaiterOrder/WaiterOrder';
+import TablesBookingNew from './components/views/TablesBookingNew/TablesBookingNew';
+import TablesEventsNew from './components/views/TablesEventsNew/TablesEventsNew';
+import WaiterOrderNew from './components/views/WaiterOrderNew/WaiterOrderNew';
 
 function App() {
   return (
@@ -19,8 +23,12 @@ function App() {
           <Route path={process.env.PUBLIC_URL + '/login'} element={<Login />} />
           <Route path={process.env.PUBLIC_URL + '/tables'} element={<Tables />} />
           <Route path={process.env.PUBLIC_URL + '/table/booking/:id'} element={<TablesBooking />} />
+          <Route path={process.env.PUBLIC_URL + '/table/booking/:new'} element={<TablesBookingNew />} />
           <Route path={process.env.PUBLIC_URL + '/table/events/:id'} element={<TablesEvents />} />
+          <Route path={process.env.PUBLIC_URL + '/table/events/new'} element={<TablesEventsNew />} />
           <Route path={process.env.PUBLIC_URL + '/waiter'} element={<Waiter />} />
+          <Route path={process.env.PUBLIC_URL + '/waiter/order/:id'} element={<WaiterOrder />} />
+          <Route path={process.env.PUBLIC_URL + '/waiter/order/new'} element={<WaiterOrderNew />} />
         </Routes>
       </MainLayout>
     </BrowserRouter>
