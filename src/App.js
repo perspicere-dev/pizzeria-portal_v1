@@ -37,10 +37,10 @@ function App() {
               <Route path={process.env.PUBLIC_URL + '/kitchen'} element={<Kitchen />} />
               <Route path={process.env.PUBLIC_URL + '/login'} element={<Login />} />
               <Route path={process.env.PUBLIC_URL + '/tables'} element={<Tables />} />
-              <Route path={process.env.PUBLIC_URL + '/table/booking/:id'} element={<TablesBooking />} />
-              <Route path={process.env.PUBLIC_URL + '/table/booking/:new'} element={<TablesBookingNew />} />
-              <Route path={process.env.PUBLIC_URL + '/table/events/:id'} element={<TablesEvents />} />
-              <Route path={process.env.PUBLIC_URL + '/table/events/new'} element={<TablesEventsNew />} />
+              <Route path={process.env.PUBLIC_URL + '/tables/booking/:id'} element={<TablesBooking />} />
+              <Route path={process.env.PUBLIC_URL + '/tables/booking/new'} element={<TablesBookingNew />} />
+              <Route path={process.env.PUBLIC_URL + '/tables/events/:id'} element={<TablesEvents />} />
+              <Route path={process.env.PUBLIC_URL + '/tables/events/new'} element={<TablesEventsNew />} />
               <Route path={process.env.PUBLIC_URL + '/waiter'} element={<Waiter />} />
               <Route path={process.env.PUBLIC_URL + '/waiter/order/:id'} element={<WaiterOrder />} />
               <Route path={process.env.PUBLIC_URL + '/waiter/order/new'} element={<WaiterOrderNew />} />

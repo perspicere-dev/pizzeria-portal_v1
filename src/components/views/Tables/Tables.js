@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './Tables.module.scss';
-import {Link} from 'react-router-dom';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import DateTimePicker from '@mui/lab/DateTimePicker';
@@ -15,7 +14,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import {useNavigate} from 'react-router-dom';
-
 
 const Tables = () => {
 
@@ -125,7 +123,7 @@ const Tables = () => {
         return (
           <Button 
             variant='outlined'
-            onClick={() => navigate('event/' + event.id, { replace: true })}
+            onClick={() => navigate('events/' + event.id, { replace: true })}
           >{'Event ' + event.id} 
           </Button> 
         );
@@ -137,12 +135,6 @@ const Tables = () => {
   return (
     <div className={styles.component}>
       <h2>Tables view</h2>
-      <Container maxWidth='lg'>
-        <Link to={`tables/booking/:id`}>Booking</Link>
-        <Link to={`/tables/booking/:new`}>New booking</Link>
-        <Link to={process.env.PUBLIC_URL +`/tables/events/:id`}>Event</Link>
-        <Link to={process.env.PUBLIC_URL +`/tables/events/new`}>New event</Link>
-      </Container>
       <Container maxWidth='lg'>
         <LocalizationProvider dateAdapter={AdapterDateFns}>
           <DateTimePicker
@@ -187,8 +179,16 @@ const Tables = () => {
           </Table>
         </TableContainer>
       </Container>
-      
-
+      <Button 
+        variant='outlined'
+        onClick={() => navigate('booking/new' , { replace: true })}
+      >{'Add new booking'} 
+      </Button> 
+      <Button 
+        variant='outlined'
+        onClick={() => navigate('events/new' , { replace: true })}
+      >{'Add new event'} 
+      </Button> 
     </div>
   );
 };
