@@ -14,19 +14,20 @@ const Login = () => {
   return (
     <div className={styles.component}>
       <h2>Login</h2>
-      <Box
-        component="form"
+      <Box 
+        className={styles.box}
+        component='form'
         sx={{
           '& > :not(style)': { m: 1, width: '25ch' },
         }}
         noValidate
-        autoComplete="off"
+        autoComplete='off'
       >
-        <TextField id="outlined-basic" label="Id" variant="outlined" />
-        <TextField id="filled-basic" label="Password" variant="outlined" />
+        <TextField id='outlined-basic' label='Id' variant='outlined' />
+        <TextField id='filled-basic' label='Password' variant='outlined' />
         <Button 
-          variant="outlined"
-          onClick={() => navigate('/', { replace: true })}
+          variant='outlined'
+          onClick={() => navigate('/panel', { replace: true })}
         >LogIn
         </Button>      
       </Box>

@@ -3,3 +3,9 @@
 .component {
   padding: $base-size;
 }
+
+.box {
+  display: flex;
+  align-items: center;
+  margin: auto;
+}

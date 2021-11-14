@@ -10,7 +10,6 @@ const MainLayout = ({children}) => (
     <AppBar>
       <Container maxWidth='lg'>
         <Toolbar disableGutters>
-
           <PageNav />
         </Toolbar>
       </Container>
