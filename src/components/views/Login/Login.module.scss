@@ -9,3 +9,17 @@
   align-items: center;
   margin: auto;
 }
+
+.dupa {
+  color: #fff;
+  border: solid black 2px;
+  padding: 20px;
+  width: 110px;
+  background-color: black;
+  border-radius: 10%;
+  
+  &:hover {
+    opacity: 0.7;
+    cursor: pointer;
+  }
+}
