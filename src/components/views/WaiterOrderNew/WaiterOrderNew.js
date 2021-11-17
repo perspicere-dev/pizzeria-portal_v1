@@ -8,29 +8,18 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-// import CheckIcon from '@mui/icons-material/Check';
-// import ToggleButton from '@mui/material/ToggleButton';
 import Button from '@mui/material/Button';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Radio from '@mui/material/Radio';
-// import FormLabel from '@mui/material/FormLabel';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormGroup from '@mui/material/FormGroup';
 import Checkbox from '@mui/material/Checkbox';
 
-
-// - numer stolika (edytowalny)
-// - menu produktów
-// - opcje wybranego produktu
-// - zamówienie (zamówione produty z opcjami i ceną)
-// - kwotę zamówienia
-
-const WaiterOrderNew = () => {
-  
+const WaiterOrderNew = () => {  
 
   const demoTables = [
     {id: 1, name: 'Table 1'},
@@ -304,6 +293,7 @@ const WaiterOrderNew = () => {
       </Container>
       <Container> 
         <Button variant="outlined">Save</Button>
+        <Button variant="outlined">Cancel</Button>
       </Container>
     </div>
   );

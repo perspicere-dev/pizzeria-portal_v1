@@ -83,7 +83,9 @@ const Waiter = () => {
               </TableCell>
               <TableCell>
                 {row.order && (
-                  <Button to={`${process.env.PUBLIC_URL}/waiter/order/${row.order}`}>
+                  <Button to={`${process.env.PUBLIC_URL}/waiter/order/${row.order}`}
+                    onClick={() => navigate('order/' + row.order, { replace: true })}
+                  >
                     {row.order}
                   </Button>
                 )}
