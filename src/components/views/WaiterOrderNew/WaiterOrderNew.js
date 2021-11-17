@@ -107,33 +107,37 @@ const WaiterOrderNew = () => {
         },
       },
     },
+    {
+      id: 'lopo',
+      name: 'Popo lopo',
+      price: 4,
+      description: 'A delicious salad made of fresh, home-grown products on a crispy lettuce base.',
+      params: {
+        ingredients: {
+          label: 'Ingredients',
+          type: 'redios',
+          options: {
+            artichoke: {
+              label: 'artichoke',
+              price: 1, 
+              default: true,
+            },
+          },
+        },
+      },
+    },
+    
   ];
+
+  const [selectTable, setTable] = React.useState('');
+  const selectedTableArray = [];
+
+  const [selectProduct, setProduct] = React.useState('');
+  const selectedProductArray = [];
+
+  // const orderSummaryArray = [];
   
   let selectedProduct = demoMenu[0];
-
-  // const getProduct = () => {
-  //   for (let product of demoMenu) {
-  //     const option = product.params.ingredients.options;
-  //     for (let optionLabel in option) {
-  //       return optionLabel;
-  //     }
-  //   }};
-
-
-  // const [selected, setSelected] = React.useState(false);
-
-  /* 
-                  console
-                  1. Muszę mieć referecje do zaznaczonego produktu - Done: selectedProduct
-                  2. Muszę się dobrać do właściwości params wybranego produktu - done: electedProduct.param
-                  3. Musimy przejść pętlą po wszystkich parametrach (params)  - done
-                  4. Musimy mieć referecję do konkretnego parametru (w naszym przykładzie jest to ingriedients, other_parameter) - done
-                  5. Stwórz kontener wyświetlający formularz, wyświetl nazwę danego parametru - done
-                  6. Muszę się dobrać do właściwości options danego parametru - done 
-                  7. Musimy przejść pętlą po wszystkich opcjach (options) - done
-                  8. Musimy mieć referecję do konkretnej opcji (w naszym przykładzie jest to cucumber, tomatoes...) - done
-                  9. Wyświetl radio/checkbox dla danej opcji
-                  */
 
   const renderParamsOfSelectedProduct = () => {
     const renderedParamForms = [];
@@ -158,12 +162,6 @@ const WaiterOrderNew = () => {
       return renderCheckboxForm(param.options);
     }
   };
-
-  {/* <FormGroup>
-      <FormControlLabel control={<Checkbox defaultChecked />} label="Label" />
-      <FormControlLabel disabled control={<Checkbox />} label="Disabled" />
-    </FormGroup> */}
-
 
   const renderRadioForm = (options) => {
 
@@ -215,7 +213,6 @@ const WaiterOrderNew = () => {
               <FormControlLabel control={<Checkbox />} label={option.label} />
             ));
           }
-
           return views;          
         })()}
       </FormGroup>
@@ -241,72 +238,66 @@ const WaiterOrderNew = () => {
                   <FormControl fullWidth>
                     <InputLabel id="table">Table</InputLabel>
                     <Select
-                      labelId="Table"
+                      labelId="TableId"
                       id="Table"
-                      value={demoTables[0].id}
+                      value={selectTable}
                       label="Table"
-                      onChange={(newValue) => {
-                        console.log(newValue);
-                      }}
-                    >{demoTables.map(table => (<MenuItem key={table.id} value={demoTables.id}>{table.name}</MenuItem>))}
+                      onChange={(event) => {
+                        selectedTableArray.push(event.target.value);
+                        setTable(event.target.value);
+                        console.log('selectedTableArray', selectedTableArray);
+                      } }
+                    >{demoTables.map(table => (<MenuItem key={table.id} value={table.name}>{table.name}</MenuItem>))}
                     </Select>
                   </FormControl>
                 </TableCell>
               </TableRow>
-              <TableRow>
-                <TableCell>Menu</TableCell>
-                <TableCell>
-                  <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Menu</InputLabel>
-                    <Select
-                      labelId="Menu"
-                      id="menu"
-                      value={demoMenu[0].id}
-                      label="Menu"
-                      onChange={(newValue) => {
-                        // console.log(newValue);
-                        selectedProduct = newValue;
-                      }}
-                    >
-                      {
-                        demoMenu.map(product => (
-                          <MenuItem key={product.id} value={product.id}>{product.name}</MenuItem>
-                        ))
-                      }
-                    </Select>
-                  </FormControl>
-                </TableCell>
-              </TableRow>
-
               <TableRow>
                 <TableCell>Product</TableCell>
                 <TableCell>
-                  {console.log(selectedProduct.params)}                  
-                  {renderParamsOfSelectedProduct()}
-                </TableCell>
-              </TableRow>
-
-              <TableRow>
-                <TableCell>Product options</TableCell>
-                <TableCell>
-                  {/* <FormControl fullWidth>
-                    <InputLabel id="demo-simple-select-label">Menu</InputLabel>
+                  <FormControl fullWidth>
+                    <InputLabel id="Products">Product</InputLabel>
                     <Select
                       labelId="Menu"
                       id="menu"
-                      value={demoMenu[0].id}
+                      value={selectProduct}
                       label="Menu"
-                      onChange={(newValue) => {
-                        console.log(newValue);
+                      onChange={(event) => {
+                        setProduct(event.target.value);
+                        console.log('event.target.value', event.target.value);
+                        selectedProductArray.push(event.target.value);
+                        console.log('selectedProductArray', selectedProductArray);
                       }}
-                    >{demoMenu.map(product => (<MenuItem key={product.id} value={product.id}>{product.name}</MenuItem>))}
+                    >
+                      {
+                        demoMenu.map(product => (<MenuItem key={product.id} value={product.name}>{product.name}</MenuItem>))}
                     </Select>
-                  </FormControl> */}
+                  </FormControl>
                 </TableCell>
               </TableRow>
-
-
-
+              <TableRow>
+                <TableCell>Product options</TableCell>
+                <TableCell>
+                  {console.log(selectedProduct.params)}                  
+                  {renderParamsOfSelectedProduct()}
+                  <TableCell></TableCell>
+                  <Button variant="outlined">Add to order</Button>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Order summary</TableCell>
+                <TableCell>
+                  Table 1 order: <br />
+                  {demoMenu[0].name}{selectedProductArray[0]} <strong>${demoMenu[0].price}</strong>
+                  <br /> <strong>options:</strong> <br />
+                  {demoMenu[0].params.ingredients.options.cucumber.label} <strong>${demoMenu[0].params.ingredients.options.cucumber.price}</strong><br />
+                  {demoMenu[0].params.ingredients.options.olives.label} <strong>${demoMenu[0].params.ingredients.options.olives.price}</strong>
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell>Total:</TableCell>
+                <TableCell><strong>$11</strong></TableCell>
+              </TableRow>
             </TableBody>
           </Table>
         </TableContainer>
