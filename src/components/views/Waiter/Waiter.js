@@ -7,33 +7,32 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import {useNavigate} from 'react-router-dom';
+// import {useNavigate} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 
-const demoContent = [
-  {id: '1', status: 'free', order: null},
-  {id: '2', status: 'thinking', order: null},
-  {id: '3', status: 'ordered', order: 123},
-  {id: '4', status: 'prepared', order: 234},
-  {id: '5', status: 'paid', order: 345},
-  {id: '6', status: 'paid', order: 456},
-];
+class Waiter extends React.Component {
+  static propTypes = {
+    fetchTables: PropTypes.func,
+    tables: PropTypes.node,
+    loading: PropTypes.shape({
+      active: PropTypes.bool,
+      error: PropTypes.oneOfType([PropTypes.bool,PropTypes.string]),
+    }),
+  }
 
-const Waiter = () => {
+  componentDidMount(){
+    const { fetchTables } = this.props;
+    fetchTables();
+  }
 
-  const navigate = useNavigate();
-  
-  const renderActions = (status) => {  
-
+  renderActions(status){
     switch (status) {
       case 'free':
         return (
           <>
             <Button>thinking</Button>
-            <Button
-              variant='outlined'
-              onClick={() => navigate('order/new' , { replace: true })}
-            >new order</Button>
+            <Button>new order</Button>
           </>
         );
       case 'thinking':
@@ -59,46 +58,63 @@ const Waiter = () => {
       default:
         return null;
     }
-  };
+  }
 
-  return (
-    <Paper className={styles.component}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Table</TableCell>
-            <TableCell>Status</TableCell>
-            <TableCell>Order</TableCell>
-            <TableCell>Action</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {demoContent.map(row => (
-            <TableRow key={row.id}>
-              <TableCell component="th" scope="row">
-                {row.id}
-              </TableCell>
-              <TableCell>
-                {row.status}
-              </TableCell>
-              <TableCell>
-                {row.order && (
-                  <Button to={`${process.env.PUBLIC_URL}/waiter/order/${row.order}`}
-                    onClick={() => navigate('order/' + row.order, { replace: true })}
-                  >
-                    {row.order}
-                  </Button>
-                )}
-              </TableCell>
-              <TableCell>
-                {renderActions(row.status)}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </Paper>
-  );  
-};
+  render() {
+    const { loading: { active, error }, tables } = this.props;
+
+    if(active || !tables.length){
+      return (
+        <Paper className={styles.component}>
+          <p>Loading...</p>
+        </Paper>
+      );
+    } else if(error) {
+      return (
+        <Paper className={styles.component}>
+          <p>Error! Details:</p>
+          <pre>{error}</pre>
+        </Paper>
+      );
+    } else {
+      return (
+        <Paper className={styles.component}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Table</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Order</TableCell>
+                <TableCell>Action</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {tables.map(row => (
+                <TableRow key={row.id}>
+                  <TableCell component="th" scope="row">
+                    {row.id}
+                  </TableCell>
+                  <TableCell>
+                    {row.status}
+                  </TableCell>
+                  <TableCell>
+                    {row.order && (
+                      <Button to={`${process.env.PUBLIC_URL}/waiter/order/${row.order}`}>
+                        {row.order}
+                      </Button>
+                    )}
+                  </TableCell>
+                  <TableCell>
+                    {this.renderActions(row.status)}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </Paper>
+      );
+    }
+  }
+}
 
 export default Waiter;
